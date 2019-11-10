@@ -79,28 +79,8 @@ public class Renamer {
 		}
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	public List<String> getEpisodes() {
 		return episodes;
-	}
-
-	public void setEpisodes(List<String> episodes) {
-		this.episodes = episodes;
-	}
-
-	public String getFileExtension() {
-		return fileExtension;
-	}
-
-	public void setFileExtension(String fileExtension) {
-		this.fileExtension = fileExtension;
 	}
 
 }
