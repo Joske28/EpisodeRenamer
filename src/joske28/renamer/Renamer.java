@@ -2,6 +2,7 @@ package joske28.renamer;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,10 +50,12 @@ public class Renamer {
 
 			@Override
 			public int compare(String episode1, String episode2) {
+				//using big ints in case someone has a lot of numbers in their file name
 				String digitRegex = "\\D+";
-				String episode1Digits = episode1.replaceAll(digitRegex, "");
-				String episode2Digits = episode2.replaceAll(digitRegex, "");
-				return Integer.parseInt(episode1Digits) - Integer.parseInt(episode2Digits);
+				BigInteger episode1Digits = new BigInteger(episode1.replaceAll(digitRegex, ""));
+				BigInteger episode2Digits = new BigInteger(episode2.replaceAll(digitRegex, ""));
+				
+				return episode1Digits.compareTo(episode2Digits);
 			}
 		});
 		walk.close();
