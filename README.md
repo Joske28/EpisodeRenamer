@@ -8,12 +8,15 @@ Bulk renames episodes
  ![Screenshot 2](screenshots/ss2.png)
  ## Screenshot 3
  ![Screenshot 3](screenshots/ss3.png)
+ ## Screenshot 4
+ ![Screenshot 4](screenshots/ss4.png)
 
 # Download latest compiled version
  - [Latest release](https://github.com/Joske28/EpisodeRenamer/releases/latest)
 
  
 # Notes
+ - Requires Java
  - Only tested on windows, however, it should work on other operating systems which support java (I kept the code very general).
  - Make sure to check the 'display episodes' to ensure that they are renamed in the correct order. It renames them top down in the list.
 	- The order is based on the numbers in the filename.
