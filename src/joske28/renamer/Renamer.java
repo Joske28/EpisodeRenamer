@@ -18,6 +18,15 @@ public class Renamer {
 	private String season;
 	private int episodeNumber;
 	
+	public Renamer(String path, String fileExtension) {
+		this.path = path;
+		this.fileExtension = fileExtension;
+		this.name = null;
+		this.season = null;
+		this.episodeNumber = 1;
+		this.episodes = getAllFiles(path, fileExtension);
+	}
+	
 	public Renamer(String path, String fileExtension, String name, String season, int episodeNumber) {
 		this.path = path;
 		this.fileExtension = fileExtension;
