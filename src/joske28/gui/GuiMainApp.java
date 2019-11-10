@@ -16,7 +16,6 @@ import joske28.renamer.Renamer;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.Font;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
