@@ -5,20 +5,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Renamer {
-	
+
 	private String path;
 	private List<String> episodes;
 	private String fileExtension;
 	private String name;
 	private String season;
 	private int episodeNumber;
-	
-	public Renamer(String path, String fileExtension) {
+
+	public Renamer(String path, String fileExtension) throws IOException {
 		this.path = path;
 		this.fileExtension = fileExtension;
 		this.name = null;
@@ -26,8 +28,9 @@ public class Renamer {
 		this.episodeNumber = 1;
 		this.episodes = getAllFiles(path, fileExtension);
 	}
-	
-	public Renamer(String path, String fileExtension, String name, String season, int episodeNumber) {
+
+	public Renamer(String path, String fileExtension, String name, String season, int episodeNumber)
+			throws IOException {
 		this.path = path;
 		this.fileExtension = fileExtension;
 		this.name = name;
@@ -35,69 +38,67 @@ public class Renamer {
 		this.season = season;
 		this.episodes = getAllFiles(path, fileExtension);
 	}
-	
-	
-	public List<String> getAllFiles(String path, String fileExtenString) {
-	
+
+	public List<String> getAllFiles(String path, String fileExtenString) throws IOException {
+
 		List<String> episodes = null;
-		
-		try (Stream<Path> walk = Files.walk(Paths.get(path))) {
 
-			episodes = walk.map(x -> x.toString())
-					.filter(f -> f.endsWith(fileExtenString)).collect(Collectors.toList());
+		Stream<Path> walk = Files.walk(Paths.get(path));
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	
+		episodes = walk.map(x -> x.toString()).filter(f -> f.endsWith(fileExtenString)).collect(Collectors.toList());
+		episodes.sort(new Comparator<String>() {
+
+			@Override
+			public int compare(String episode1, String episode2) {
+				String digitRegex = "\\D+";
+				String episode1Digits = episode1.replaceAll(digitRegex, "");
+				String episode2Digits = episode2.replaceAll(digitRegex, "");
+				return Integer.parseInt(episode1Digits) - Integer.parseInt(episode2Digits);
+			}
+		});
+		walk.close();
 		return episodes;
 	}
-	
+
 	public void rename(String pathToFile) {
 		File file = new File(pathToFile);
 		if (file.isFile()) {
-			File file2 = new File(path + File.separator + name + "-" + "S" + season + "E" + episodeNumber + fileExtension);
+			File file2 = new File(
+					path + File.separator + name + "-" + "S" + season + "E" + episodeNumber + fileExtension);
 			file.renameTo(file2);
 			++episodeNumber;
 		}
-		
-		
+
 	}
-	
+
 	public void renameAll() {
 		if (this.episodes.size() > 0) {
 			this.episodes.forEach(episode -> rename(episode));
 		}
 	}
 
-
 	public String getPath() {
 		return path;
 	}
-
 
 	public void setPath(String path) {
 		this.path = path;
 	}
 
-
 	public List<String> getEpisodes() {
 		return episodes;
 	}
-
 
 	public void setEpisodes(List<String> episodes) {
 		this.episodes = episodes;
 	}
 
-
 	public String getFileExtension() {
 		return fileExtension;
 	}
 
-
 	public void setFileExtension(String fileExtension) {
 		this.fileExtension = fileExtension;
 	}
-	
+
 }
