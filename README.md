@@ -12,7 +12,7 @@ Bulk renames episodes
  ![Screenshot 4](screenshots/ss4.png)
 
 # Download latest compiled version
- - [Latest release](https://github.com/Joske28/EpisodeRenamer/releases/latest)
+ - [Latest release - Compiled with Java 8](https://github.com/Joske28/EpisodeRenamer/releases/latest)
 
  
 # Notes
